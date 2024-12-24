@@ -10,6 +10,8 @@ from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain.chains import create_history_aware_retriever, create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
+from langchain.vectorstores import FAISS
+
 
 
 
@@ -18,13 +20,13 @@ def get_vectorstore_from_url(url):
     # get the text in document form
     loader = WebBaseLoader(url)
     document = loader.load()
-   
+
     # split the document into chunks
     text_splitter = RecursiveCharacterTextSplitter()
     document_chunks = text_splitter.split_documents(document)
-   
-    # create a vectorstore from the chunks
-    vector_store = Chroma.from_documents(document_chunks, OpenAIEmbeddings(openai_api_key = openai_api_key))
+
+    # create a vectorstore from the chunks (using FAISS)
+    vector_store = FAISS.from_documents(document_chunks, OpenAIEmbeddings(openai_api_key=openai_api_key))
 
     return vector_store
 
