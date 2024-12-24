@@ -1,8 +1,9 @@
 streamlit
 langchain
-chromadb
+chromadb>=0.4.0
 openai
 langchain-community
 tiktoken
 langchain_openai
 bs4
+# sqlite3 >= 3.35.0.
